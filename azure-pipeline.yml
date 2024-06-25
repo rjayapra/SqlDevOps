@@ -30,14 +30,15 @@ stages:
     steps:
     - task: AzureCLI@1
       inputs:
-        azureSubscription: 'sqldevopsdemosub-test'
+        azureSubscription: 'sqldevops-connection'
         scriptLocation: 'inlineScript'
         inlineScript: 'az sql db create -g $(resourceGroupName) -s $(azureSqlServerResourceName) -n $(azureSqlDBName)'
 
 - stage: BuildDACPAC
   jobs:
   - job: BuildDACPAC
-    pool: 'ubuntu-latest'
+    pool: 
+      vmImage: ubuntu-latest
     steps:
     - task: VSBuild@1
       inputs:
@@ -55,7 +56,8 @@ stages:
   - deployment: NeedApprovalforDBDeploy
     environment: Production
   - job: DeployDACPAC
-    pool: 'ubuntu-latest'
+    pool: 
+      vmImage: ubuntu-latest
     steps:
     - task: DownloadBuildArtifacts@0
       inputs:
@@ -66,11 +68,14 @@ stages:
     - task: SqlAzureDacpacDeployment@1
       displayName: 'Deploy Azure SQL DB'
       inputs:
-        azureSubscription: '$(azureSubscription)'
+        azureSubscription: 'sqldevops-connection'
+        AuthenticationType: 'server'
         ServerName: '$(azureSqlServerName)'
         DatabaseName: '$(azureSqlDBName)'
         SqlUsername: '$(azureSqlUser)'
         SqlPassword: '$(azureSqlPassword)'
-        DacpacFile: '$(System.ArtifactsDirectory)/sqlproj_artifacts_$(System.JobAttempt)/wwi-ssdt/bin/Release/wwi-ssdt.dacpac'
+        deployType: 'DacpacTask'
+        DeploymentAction: 'Publish'
+        DacpacFile: '$(System.ArtifactsDirectory)/sqlproj_artifacts_$(System.JobAttempt)/wwi-ssdt/bin/Release/wwi-ssdt.dacpac'        
+        IpDetectionMethod: 'AutoDetect'
         DeleteFirewallRule: false
-        AdditionalArguments: '/v:SQLPassword="$(webappSqlPassword)"'
