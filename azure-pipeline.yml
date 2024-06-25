@@ -37,7 +37,7 @@ stages:
 - stage: BuildDACPAC
   jobs:
   - job: BuildDACPAC
-    pool: 'Azure self-hosted'
+    pool: 'ubuntu-latest'
     steps:
     - task: VSBuild@1
       inputs:
@@ -55,7 +55,7 @@ stages:
   - deployment: NeedApprovalforDBDeploy
     environment: Production
   - job: DeployDACPAC
-    pool: 'Azure self-hosted'
+    pool: 'ubuntu-latest'
     steps:
     - task: DownloadBuildArtifacts@0
       inputs:
@@ -71,6 +71,6 @@ stages:
         DatabaseName: '$(azureSqlDBName)'
         SqlUsername: '$(azureSqlUser)'
         SqlPassword: '$(azureSqlPassword)'
-        DacpacFile: '$(System.ArtifactsDirectory)/sqlproj_artifacts_$(System.JobAttempt)/fitnessdb-ssdt/bin/Release/fitnessdb-ssdt.dacpac'
+        DacpacFile: '$(System.ArtifactsDirectory)/sqlproj_artifacts_$(System.JobAttempt)/wwi-ssdt/bin/Release/wwi-ssdt.dacpac'
         DeleteFirewallRule: false
         AdditionalArguments: '/v:SQLPassword="$(webappSqlPassword)"'
