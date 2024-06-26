@@ -25,7 +25,7 @@
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <AnsiNulls>False</AnsiNulls>
     <QuotedIdentifier>False</QuotedIdentifier>
-    <TemporalHistoryRetentionEnabled>On</TemporalHistoryRetentionEnabled>
+    <TemporalHistoryRetentionEnabled>Off</TemporalHistoryRetentionEnabled>
     <IsLedgerOn>False</IsLedgerOn>
     <QueryStoreCaptureMode>Auto</QueryStoreCaptureMode>
     <QueryStoreDesiredState>ReadWrite</QueryStoreDesiredState>
