@@ -15,7 +15,7 @@ trigger:
 variables:
  - group: 'Secrets'
  - name: solution
-   value: '**/*.sln'
+   value: '$(Build.SourcesDirectory)**/wwi/*.sln'
  - name: buildPlatform
    value: 'Any CPU'
  - name: buildConfiguration
@@ -40,6 +40,17 @@ stages:
     pool: 
       vmImage: windows-latest
     steps:
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          Write-Host "Current directory"
+          
+          dir $(Build.SourcesDirectory)
+
+      
     - task: VSBuild@1
       inputs:
         solution: '$(solution)'
