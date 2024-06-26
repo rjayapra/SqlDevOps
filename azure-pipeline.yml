@@ -87,6 +87,6 @@ stages:
         SqlPassword: '$(azureSqlPassword)'
         deployType: 'DacpacTask'
         DeploymentAction: 'Publish'
-        DacpacFile: '$(System.ArtifactsDirectory)/sqlproj_artifacts_$(System.JobAttempt)/wwi-ssdt/bin/Release/wwi-ssdt.dacpac'        
+        DacpacFile: '$(System.ArtifactsDirectory)/sqlproj_artifacts_$(System.JobAttempt)/wwiproject/bin/Release/wwiproject.dacpac'
         IpDetectionMethod: 'AutoDetect'
         DeleteFirewallRule: false
