@@ -1,6 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
+# Infra setup pipeline
 # https://aka.ms/yaml
 
 trigger:
@@ -25,7 +23,3 @@ jobs:
         csmParametersFileLink: 'https://github.com/rjayapra/SqlDevOps/blob/main/Infra/azuredeploy.parameters.json'
         deploymentMode: 'Incremental'
         deploymentName: 'sqlserver_IaC'
-
-  
-      
-  
